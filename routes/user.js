@@ -10,6 +10,12 @@ router.route('/')
     .get(UserController.index)
     .post(validateBody(schemas.userSchema), UserController.newUser)
 
+router.route('/signup').post(validateBody(schemas.authSignUpSchema), UserController.signUp)
+
+router.route('/signin').post(validateBody(schemas.authSignInSchema), UserController.signIn)
+
+router.route('/secret').get(UserController.secret)
+
 router.route('/:userID')
     .get(validateParam(schemas.idSchema, 'userID'), UserController.getUser)
     .put(validateParam(schemas.idSchema, 'userID'), validateBody(schemas.userSchema), UserController.replaceUser)
