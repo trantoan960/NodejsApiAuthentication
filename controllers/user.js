@@ -83,7 +83,17 @@ const signIn = async (req, res, next) => {
 };
 
 const signUp = async (req, res, next) => {
-  console.log("Called to signUp function.");
+  const { firstName, lastName, email, password } = req.value.body
+
+  // Check if there is a user with the same user
+  const foundUser = await User.findOne({ email })
+  if (foundUser) return res.status(403).json({ error: { message: 'Email is already in use.' }})
+
+  // Create a new user
+  const newUser = new User({ firstName, lastName, email, password })
+  newUser.save()
+
+  return res.status(201).json({ success: true })
 };
 
 const updateUser = async (req, res, next) => {
