@@ -1,3 +1,6 @@
+// Config env
+require('dotenv').config()
+
 const bodyParser = require("body-parser");
 const express = require("express");
 const logger = require("morgan");

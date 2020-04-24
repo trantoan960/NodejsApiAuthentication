@@ -8,6 +8,18 @@
 const Deck = require("../models/Deck");
 const User = require("../models/User");
 
+const { JWT_SECRET } = require('../configs')
+const JWT = require('jsonwebtoken')
+
+const encodedToken = (userID) => {
+  return JWT.sign({
+    iss: 'Tran Toan',
+    sub: userID,
+    iat: new Date().getTime(),
+    exp: new Date().setDate(new Date().getDate() + 3)
+  }, JWT_SECRET)
+}
+
 const getUser = async (req, res, next) => {
   const { userID } = req.value.params;
 
@@ -93,6 +105,10 @@ const signUp = async (req, res, next) => {
   const newUser = new User({ firstName, lastName, email, password })
   newUser.save()
 
+  // Encode a token
+  const token = encodedToken(newUser._id)
+
+  res.setHeader('Authorization', token)
   return res.status(201).json({ success: true })
 };
 
