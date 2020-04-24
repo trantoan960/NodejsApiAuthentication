@@ -91,7 +91,11 @@ const secret = async (req, res, next) => {
 };
 
 const signIn = async (req, res, next) => {
-  console.log("Called to signIn function.");
+  // Assign a token
+  const token = encodedToken(req.user._id)
+
+  res.setHeader('Authorization', token)
+  return res.status(200).json({ success: true })
 };
 
 const signUp = async (req, res, next) => {
