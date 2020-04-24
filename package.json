@@ -14,7 +14,9 @@
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.9"
+    "mongoose": "^5.9.9",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

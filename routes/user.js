@@ -6,6 +6,9 @@ const UserController = require('../controllers/user')
 
 const { validateBody, validateParam, schemas } = require('../helpers/routerHelpers')
 
+const passport = require('passport')
+const passportConfig = require('../middlewares/passport')
+
 router.route('/')
     .get(UserController.index)
     .post(validateBody(schemas.userSchema), UserController.newUser)
@@ -14,7 +17,7 @@ router.route('/signup').post(validateBody(schemas.authSignUpSchema), UserControl
 
 router.route('/signin').post(validateBody(schemas.authSignInSchema), UserController.signIn)
 
-router.route('/secret').get(UserController.secret)
+router.route('/secret').get(passport.authenticate('jwt', { session: false }), UserController.secret)
 
 router.route('/:userID')
     .get(validateParam(schemas.idSchema, 'userID'), UserController.getUser)

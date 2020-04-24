@@ -87,7 +87,7 @@ const replaceUser = async (req, res, next) => {
 };
 
 const secret = async (req, res, next) => {
-  console.log("Called to secret function.");
+  return res.status(200).json({ resources: true })
 };
 
 const signIn = async (req, res, next) => {
