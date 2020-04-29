@@ -15,6 +15,8 @@ router.route('/')
 
 router.route('/auth/google').post(passport.authenticate('google-plus-token', { session: false }), UserController.authGoogle)
 
+router.route('/auth/facebook').post(passport.authenticate('facebook-token', { session: false }), UserController.authFacebook)
+
 router.route('/signup').post(validateBody(schemas.authSignUpSchema), UserController.signUp)
 
 router.route('/signin').post(validateBody(schemas.authSignInSchema), passport.authenticate('local', { session: false }), UserController.signIn)
